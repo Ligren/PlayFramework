@@ -1,0 +1,43 @@
+@(applicants: List[Applicant], message: String)
+
+
+@main("Welcome to Play") {
+
+    @*play20.welcome(message, style = "Java")*@
+
+    @*message*@
+
+    <script src="@routes.Assets.at("javascripts/index.js")" type="text/javascript"></script>
+    <!--<script src="@routes.Assets.at("javascripts/hello.js")" type="text/javascript"></script>-->
+
+
+	
+    <ul id="applicants"></ul>
+
+    <ul>
+    @for(category <- applicants) {
+    @*<li><a href="@routes.Application.show(category.id)">@category.dateAddition</a></li>*@
+        <h2>"@category.dateAddition"</h2>
+    }
+    </ul>
+	
+	<input type='button' onclick="namef ('hello world')">
+
+
+    <br>
+    <form action="@routes.Application.addApplicant()" method="post">
+        Name:<br>
+        <input type="text" name="name" />
+        <br>
+        Date addition<br>
+        <input type="date" name="dateAddition" />
+        <br>
+        Date Interview<br>
+        <input type="date" name="dateInterview" />
+        <br>
+        <button>Add applicant</button>
+
+
+    </form>
+<!--<a href="example">Пример</a><br>-->
+}

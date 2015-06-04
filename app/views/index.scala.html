@@ -1,0 +1,19 @@
+@(categories: List[Category], categoryForm: Form[Category])
+
+@import helper._
+
+@main("Jobs") {
+
+  <ul>
+  @for(category <- categories) {
+    <li><a href="@routes.Application.show(category.id)">@category.title</a></li>
+  }
+  </ul>
+
+  @form(routes.Application.addJob()) {
+    @inputText(categoryForm("title"))
+    <input type="submit" value="Создать">
+  }
+
+  <a href="@routes.Application.indexRWR()">тестировать БД соискатели</a>
+}

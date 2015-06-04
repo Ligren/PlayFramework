@@ -1,0 +1,36 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                    controllers.Application.index()
+
+GET         /indexRWR            controllers.Application.indexRWR()
+
+GET         /applicants          controllers.Application.getApplicants()
+
+POST        /applicant           controllers.Application.addApplicant()
+
+GET         /finish              controllers.Application.finish()
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file        controllers.Assets.at(path="/public", file)
+
+# Example
+# GET   /clients/:id          controllers.Clients.show(id: Long) -- Dynamic parts
+# GET   /files/*name          controllers.Application.download(name) -- Dynamic parts spanning several
+# GET   /items/$id<[0-9]+>    controllers.Items.show(id: Long) -- Dynamic parts with custom regular expressions
+
+# Extract the page parameter from the path, or fix the value for /
+# GET   /                     controllers.Application.show(page = "home")
+# GET   /:page                controllers.Application.show(page)
+
+# Pagination links, like /clients?page=3
+# GET   /clients              controllers.Clients.list(page: Int ?= 1)
+
+# Hello action
+# GET   /hello/:name         controllers.Application.hello(name)
+
+GET         /category/:id        controllers.Application.show(id: Long)
+POST        /category/add        controllers.Application.addJob()
+POST        /job/add             controllers.Application.add(categoryId: Long)

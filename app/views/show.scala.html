@@ -1,0 +1,22 @@
+@(category: Category, jobForm: Form[Job])
+
+@import helper._
+
+@main("Jobs") {
+
+  <h1>@category.title</h1>
+
+  <h2>Вакансии:</h2>
+  <ul>
+  @for(job <- category.jobs) {
+    <li>@job.title</li>
+  }
+  </ul>
+
+  <h2>Добавить вакансию</h2>
+  @form(routes.Application.add(category.id)) {
+
+    @inputText(jobForm("title"))
+    <input type="submit" value="Создать">
+  }
+}
