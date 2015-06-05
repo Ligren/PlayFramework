@@ -15,7 +15,7 @@ import play.db.ebean.Model.Finder;
 public class Contact extends Model {
 
     @Id
-    @Column(name  = "ID_CONTACT", nullable = false, length = 4)
+//    @Column(name  = "ID_CONTACT", nullable = false, length = 4)
     public Integer id;
 	
 	@ManyToOne
@@ -58,6 +58,7 @@ attempt - попытка
 however - однако
 enhance - повышать
 persist - сохраняется
+implicit
 
 all about jpa (on Russian)
 http://alextretyakov.blogspot.com/2013/06/jpa-mapping-tipa-odin-ko-mnogim-i.html

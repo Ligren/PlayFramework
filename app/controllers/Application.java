@@ -76,36 +76,58 @@ public class Application extends Controller {
         node.close();
 //-----------------------END elasticsearch		
         System.out.println("-----------------------------------------------------we are in the indexRWR");
-        return ok(indexRWR.render(Applicant.all(), "Hello World !!!"));
+//        return ok(indexRWR.render(Applicant.all(), "Hello World !!!", Form.form(Applicant.class)));
+        return ok(indexRWR.render(Applicant.all(), TypeContact.all(), Skill.all(), Form.form(Applicant.class)));
     }
 
 	public static Result finish() {
-//        List<Applicant> applicants = new Model.Finder(Integer.class, Applicant.class).all();
-//        return ok(toJson(applicants));
-
         System.out.println("-----------------------------------------------------we are in finish controller");
-        List<Applicant> applicants = new Model.Finder(Integer.class, Applicant.class).all();
+//        List<Applicant> applicants = new Model.Finder(Integer.class, Applicant.class).all();
 //        return ok(finish.render("Люси"));
 //        com.fasterxml.jackson.databind.JsonNode l = toJson(applicants);
 //        String k = fromJson(l, java.lang.String);
-        return ok(finish.render(stringify(toJson(applicants))));
+        return ok(indexRWR.render(Applicant.all(), TypeContact.all(), Skill.all(), Form.form(Applicant.class)));
+//        return ok(finish.render(stringify(toJson(applicants))));
     }
 
 
     public static Result addApplicant() {
-//        Form form = form(Applicant.class).bindFromRequest();
-//
-//        if (applicant.hasErrors()) {
-//            return badRequest(index.render(applicant));
-//        }
-        Applicant applicant = Form.form(Applicant.class).bindFromRequest().get();
-        applicant.save();
-        System.out.println("we are add applicant");
+//        Form<Category> filledForm = Form.form(Category.class).bindFromRequest();
+//        Category category = filledForm.get();
+//        category.save();
+        Form<Applicant> filledForm = Form.form(Applicant.class).bindFromRequest();
+        if (filledForm.hasErrors()) {
+            System.out.println("Applicant has errors !!!");
+            System.out.println("*************************");
+        } else {
+            Applicant applicant = filledForm.get();
+            applicant.save();
+        }
+        return finish();
+    }
 
-//        return redirect(routes.Application.finish());
-//        return ok(finish.render("Hello World !!!"));
-        return redirect("/finish");
-//        return redirect(routes.Application.index());
+    public static Result addTypeContact() {
+        Form<TypeContact> filledForm = Form.form(TypeContact.class).bindFromRequest();
+        if (filledForm.hasErrors()) {
+            System.out.println("Type contact has errors !!!");
+            System.out.println("***************************");
+        } else {
+            TypeContact typeContact = filledForm.get();
+            typeContact.save();
+        }
+        return finish();
+    }
+
+    public static Result addSkill() {
+        Form<Skill> filledForm = Form.form(Skill.class).bindFromRequest();
+        if (filledForm.hasErrors()) {
+            System.out.println("Skill has errors !!!");
+            System.out.println("***************************");
+        } else {
+            Skill skill = filledForm.get();
+            skill.save();
+        }
+        return finish();
     }
 
     public static Result getApplicants() {
@@ -114,7 +136,10 @@ public class Application extends Controller {
         return ok(toJson(applicants));
     }
 
-
+/*
+https://ebean-orm.github.io/apidocs/com/avaje/ebean/Query.html#findPagedList-int-int-
+https://www.playframework.com/documentation/2.4.0/JavaEbean
+ */
 //        return redirect("/example");
 
 //        return seeOther("/example");

@@ -24,17 +24,22 @@ public class Applicant extends Model {
 
     @Id
     public Integer id;
-	
+
+    @Constraints.Required
+    public String name;
+
 	@Version
+    @Formats.DateTime(pattern="MM/dd/yyyy")
 	public java.sql.Timestamp dateAddition;
-  
-	@Formats.DateTime(pattern="dd/MM/yyyy")
+
+    @Constraints.Required
+	@Formats.DateTime(pattern="MM/dd/yyyy")
     public Date dateInterview;
   
-  	@OneToMany(mappedBy= "owner")
+  	@OneToMany(mappedBy="owner")
 	public List<Contact> contacts;
 	
-  	@OneToMany(mappedBy= "owner")
+  	@OneToMany(mappedBy="owner")
 	public List<Rating> ratings;
 
     public static Finder<Integer, Applicant> find = new Finder (Integer.class, Applicant.class);

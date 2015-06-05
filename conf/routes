@@ -7,9 +7,13 @@ GET         /                    controllers.Application.index()
 
 GET         /indexRWR            controllers.Application.indexRWR()
 
-GET         /applicants          controllers.Application.getApplicants()
+GET         /applicants         controllers.Application.getApplicants()
 
-POST        /applicant           controllers.Application.addApplicant()
+POST        /indexRWR           controllers.Application.addApplicant()
+
+POST        /addTypeContact     controllers.Application.addTypeContact()
+
+POST        /addSkill           controllers.Application.addSkill()
 
 GET         /finish              controllers.Application.finish()
 

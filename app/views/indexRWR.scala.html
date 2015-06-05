@@ -1,43 +1,61 @@
-@(applicants: List[Applicant], message: String)
+@(applicants: List[Applicant], typeContacts: List[TypeContact], skills: List[Skill], applicantForm: Form[Applicant])
 
+@import helper._
 
-@main("Welcome to Play") {
-
-    @*play20.welcome(message, style = "Java")*@
-
-    @*message*@
+@main("Add applicant") {
 
     <script src="@routes.Assets.at("javascripts/index.js")" type="text/javascript"></script>
     <!--<script src="@routes.Assets.at("javascripts/hello.js")" type="text/javascript"></script>-->
 
-
-	
-    <ul id="applicants"></ul>
-
+    <h3>Type contact</h3>
     <ul>
-    @for(category <- applicants) {
-    @*<li><a href="@routes.Application.show(category.id)">@category.dateAddition</a></li>*@
-        <h2>"@category.dateAddition"</h2>
+    @for(data <- typeContacts) {
+        @*<li><a href="@routes.Application.show(category.id)">@category.dateAddition</a></li>*@
+        @data.name<br>
     }
     </ul>
-	
-	<input type='button' onclick="namef ('hello world')">
+
+    <br>
+    <form action="@routes.Application.addTypeContact()" method="post">
+        Name:<br>
+        <input type="text" name="name" /><br>
+        <input type="submit" value="Создать">
+    </form>
+
+    <h3>Skill</h3>
+    @for(data <- skills) {
+        @data.name<br>
+    }
+    <br>
+    <form action="@routes.Application.addSkill()" method="post">
+        Name:<br>
+        <input type="text" name="name" /><br>
+        <input type="submit" value="Создать">
+    </form>
+
+    <h3>Applicants</h3>
+
+    @*<ul id="applicants"></ul>*@
+
+    <!--#config timefmt="Дата: %d-%m-%y, время: %T"-->
+    @for(applicant <- applicants) {
+    @*<li><a href="@routes.Application.show(applicant.id)">@applicant.dateAddition</a></li>*@
+        Дата интервью: @applicant.dateInterview<br>
+        Дата добавления: @applicant.dateAddition <br>
+        ФИО @applicant.name<br>
+        @*<h5>"@category.dateAddition"</h5><h5>"@category.dateInterview"</h5>*@
+    }
+
+
 
 
     <br>
     <form action="@routes.Application.addApplicant()" method="post">
         Name:<br>
-        <input type="text" name="name" />
-        <br>
-        Date addition<br>
-        <input type="date" name="dateAddition" />
-        <br>
-        Date Interview<br>
-        <input type="date" name="dateInterview" />
-        <br>
-        <button>Add applicant</button>
-
-
+        <input type="text" name="name" /><br>
+        Date ('MM/dd/yyyy'):<br>
+        <input type="text" id="datepicker" name="dateInterview"><br>
+        <input type="submit" value="Создать">
     </form>
-<!--<a href="example">������</a><br>-->
+<!--<a href="example">Пример</a><br>-->
 }
